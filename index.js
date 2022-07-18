@@ -47,7 +47,7 @@ generateURL=async()=>{
     p=await openpgp.readKey({armoredKey: document.getElementById("aashiq").value.trim()});
     f=encodeURIComponent(encryptWithAES(p.toPublic().armor()))
   }
-  b="https://"+window.location.hostname+"/msgIndex.html"+`?hash=${f}`;
+  b=window.location.href+"msgIndex.html"+`?hash=${f}`;
   document.getElementById("finalURL").innerHTML=`
   <div class="col card text-bg-light mb-3">
     <div class="card-body">
