@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link href="index.css" rel="stylesheet">
+    <title>pubKey</title>
+</head>
+
+<body>
+    <div id="header-block" class="container-sm">
+        <div class="row">
+            <div class="col text-center">
+                <a id="heading" href="/index.html">🍻pubKey</a>
+            </div>
+        </div>
+        <div class="row">
+            <div id="subheading" class="col text-center text-secondary">
+                Communicate Privately in Anonymous Public Spaces.
+            </div>
+        </div>
+    </div>
+
+    <div id="disclaimer" class="container-sm">
+        <div class="row">
+            <div class="col">
+                This is a proof-of-concept of a 
+                <a id="disclaimer-links" target="_blank"
+                    href="https://en.wikipedia.org/wiki/Decentralization">decentralised</a> cryptographic protocol. Additionally, this page uses <a id="disclaimer-links" target="_blank"
+                    href="https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages#static-site-generators">NO
+                    SERVER</a>, stores <a id="disclaimer-links" target="_blank"
+                    href="https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams">NO DATA</a> and is
+                completely <a id="disclaimer-links" target="_blank"
+                    href="https://en.wikipedia.org/wiki/Client-side">CLIENT
+                    SIDE</a>.
+            </div>
+        </div>
+    </div>
+
+    <div id="how-to-use" class="container-sm">
+        <div class="row">
+            <div class="col">
+                HOW TO USE?
+            </div>
+        </div>
+    </div>
+
+    <div id="manual" class="container-sm">
+        <div class="row">
+            <div class="col">
+                Trade secrets in plain text publicly!
+                <ul id="manual-list">
+                    <li>
+                        Generate a new key or paste in a previously used one
+                    </li>
+                    <li>
+                        Share the link
+                    </li>
+                    <li>
+                        Don't lose your private key! (e.g. by closing the tab w/o backing it up)
+                    </li>
+                    <li>
+                        Decrypt messages at the bottom of the page
+                    </li>
+                </ul>
+                The URL generated contains an  <b>ECC curve25519 ciphertext</b> (wrapped in AES simply to throw off SIGINT) that contains an armored version 
+                of the public key corresponding to the provided private key. People can visit this custom link and <b>enter their message </b> to encrypt it only for 
+                your eyes.
+                Go ahead, try it!
+
+                <div id="pubkey"></div>
+
+        </div>
+    </div>
+
+    <div class="container-sm">
+        <div class="row" id="aashiq-block">
+            <div class="row col-md-auto" id="aashiq-header">
+                <label for="aashiq" class="form-label">Private Key<br>Take note if you want to resume decrypting after tab closed.<br>(Optional) Enter old private key if you wish to reuse it:</label>
+            </div>
+            <div class="col">
+                <div class="input-group col">
+                    <button class="btn btn-danger rounded-left clippy-button" type="button" id="button-addon2" onclick="clearPrivateKey()">CLEAR</button>
+                    <textarea type="text" class="form-control" id="aashiq" name="aashiq" aria-describedby="inputGroupPrepend button-addon2"
+                    placeholder="-----BEGIN PGP PRIVATE KEY...."></textarea>
+                    <button class="btn btn-primary rounded-right clippy-button cpbtn" type="button" id="button-addon2" data-clipboard-action="copy" 
+                    data-clipboard-target="#aashiq"><img class="invert" src="assets/images/clippy.svg" width="13" alt="Copy to clipboard"></button>
+                </div>
+                <div class="invalid-feedback">
+                    Bad input!
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col" id="generateURL-block">
+                <div class="btn-group" role="group">
+                <button type="button" id="generateURL" class="btn btn-primary btn-lg" onclick="generateURL();">Generate
+                    URL</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="collapse show" id="finalURLCollapse">
+                <div class="col" id="finalURL">
+                </div>
+            </div>
+        </div>
+
+        <div class="row" id="mehbooba-block">
+            <div class="col-md-auto mb-3" id="mehbooba-header">
+                <label for="mehbooba" class="form-label">Messages to decrypt:</label>
+            </div>
+            <div class="col mehbooba-row mb-3">
+                <div class="col input-group">
+                <input type="text" class="form-control mehbooba" name="mehbooba" placeholder="U2F...."
+                    aria-describedby="inputGroupPrepend" required>
+                    <button type="button" id="button-addon2" class="btn btn-primary rounded-right clippy-button"
+                            onclick="createNewElement();">+</button>
+                </div>
+                <div class="invalid-feedback">
+                    Please enter crush's name!
+                </div>
+            </div>
+            <div id="mehboobas">
+            </div>
+        </div>
+    </div>
+
+    <div class="clear"></div>
+    <footer class="footer fixed-bottom mt-auto py-3 bg-light d-none d-lg-block">
+        <div class="container">
+            <span class="text-muted">
+                ❤️ Donate XMR: 44R2G3SfTDKcade2Ffadm5MqZW8HtZa3FA5ujnSc9J7pEMFDAxUy9FQAfpWN1yit8mPQboGPNCDziXUa6SaAEDrWPzksKsT
+            </span>
+        </div>
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"
+        integrity="sha512-E8QSvWZ0eCLGk4km3hxSsNmGWbLtSCSUcewDQPQWZF6pEU8GlT8a5fF32wOl1i8ftdMhssTrF/OhyGWwonTcXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="clipboard.min.js"></script>
+    <script src="openpgp.min.js"></script>
+    <script src="index.js"></script>
+</body>
+
+</html>
