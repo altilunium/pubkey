@@ -1,7 +1,8 @@
 # pubkey
 A decentralised cryptographic protocol. Trade secrets in plain text publicly!
-https://altilunium.github.io/pubkey
 
+## Demo
+https://altilunium.github.io/pubkey
 
 ## Credits
 Fork of https://codeberg.org/popcalc/pubKey 
